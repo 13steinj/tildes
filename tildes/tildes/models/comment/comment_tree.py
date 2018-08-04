@@ -122,8 +122,7 @@ class CommentTree:
 
     def __iter__(self) -> Iterator[Comment]:
         """Iterate over the (top-level) Comments in the tree."""
-        for comment in self.tree:
-            yield comment
+        return iter(self.tree)
 
     def __len__(self) -> int:
         """Return the number of comments in the tree (including deleted)."""
