@@ -42,7 +42,7 @@ def convert_to_url_slug(original: str, max_length: int = 100) -> str:
     # Truncating a url-encoded slug can be tricky if there are any multi-byte
     # unicode characters, since the %-encoded forms of them can be quite long.
     # Check to see if the slug looks like it might contain any of those.
-    maybe_multi_bytes = bool(re.search('%..%', encoded_slug))
+    maybe_multi_bytes = re.search('%..%', encoded_slug)
 
     # if that matched, we need to take a more complicated approach
     if maybe_multi_bytes:
