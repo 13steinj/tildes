@@ -1,8 +1,9 @@
 """Contains the Comment class."""
 
+from __future__ import annotations
 from collections import Counter
 from datetime import datetime, timedelta
-from typing import Any, Optional, Sequence, Tuple
+from typing import Any, List, Optional, Tuple
 
 from pyramid.security import Allow, Authenticated, Deny, DENY_ALL, Everyone
 from sqlalchemy import (
@@ -124,7 +125,7 @@ class Comment(DatabaseModel):
             topic: Topic,
             author: User,
             markdown: str,
-            parent_comment: Optional['Comment'] = None,
+            parent_comment: Optional[Comment] = None,
     ) -> None:
         """Create a new comment."""
         self.topic = topic
@@ -205,6 +206,6 @@ class Comment(DatabaseModel):
         """Counter for number of times each tag is on this comment."""
         return Counter([tag.name for tag in self.tags])
 
-    def tags_by_user(self, user: User) -> Sequence[str]:
+    def tags_by_user(self, user: User) -> List[str]:
         """Return list of tag names that a user has applied to this comment."""
         return [tag.name for tag in self.tags if tag.user_id == user.user_id]
